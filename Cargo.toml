@@ -1,0 +1,9 @@
+[package]
+name = "flo-pdf-tools"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.8", features = ["derive"] }
+hex = "0.4.3"
+lopdf = "0.32.0"
