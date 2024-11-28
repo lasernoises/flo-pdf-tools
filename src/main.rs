@@ -45,7 +45,13 @@ fn main() {
                         }
                         Err(e) => {
                             stream.dict.set("Filter", "ASCIIHexDecode");
-                            stream.set_content(hex::encode(e.into_bytes()).into_bytes());
+                            stream.set_content(
+                                hex::encode(e.into_bytes())
+                                    .into_bytes()
+                                    .chunks(100)
+                                    .collect::<Vec<_>>()
+                                    .join(&b'\n'),
+                            );
                         }
                     }
                 }
