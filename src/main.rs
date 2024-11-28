@@ -39,12 +39,14 @@ fn main() {
 
                     let content = std::mem::replace(&mut stream.content, Vec::new());
 
-                    // if !stream.content.is_ascii() {
-                    if let Ok(string) = String::from_utf8(content) {
-                        stream.content = string.into_bytes();
-                    } else {
-                        stream.dict.set("Filter", "ASCIIHexDecode");
-                        stream.set_content(hex::encode(&stream.content).into_bytes());
+                    match String::from_utf8(content) {
+                        Ok(string) => {
+                            stream.content = string.into_bytes();
+                        }
+                        Err(e) => {
+                            stream.dict.set("Filter", "ASCIIHexDecode");
+                            stream.set_content(hex::encode(e.into_bytes()).into_bytes());
+                        }
                     }
                 }
             }
