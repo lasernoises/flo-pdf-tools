@@ -12,13 +12,14 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Rewrite the PDF to be readable in a text editor while remaining valid and viewable in a PDF
+    /// viewer.
     Textify {
         input_path: PathBuf,
         output_path: PathBuf,
     },
-    Splat {
-        input_path: PathBuf,
-    },
+    /// "Unpack" a PDF into a folder, creating separate files for each PDF object.
+    Splat { input_path: PathBuf },
 }
 
 fn main() {
